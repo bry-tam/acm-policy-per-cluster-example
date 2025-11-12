@@ -1,0 +1,24 @@
+---
+## The intent of this file is to block resources from being synced by argo
+apiVersion: builtin
+kind: AnnotationsTransformer
+metadata:
+  name: argo-hook
+annotations:
+  argocd.argoproj.io/hook: Skip
+fieldSpecs:
+- kind: Namespace
+  path: metadata/annotations
+  create: true
+- kind: ManagedCluster
+  path: metadata/annotations
+  create: true
+- kind: ManagedClusterSet
+  path: metadata/annotations
+  create: true
+- kind: ManagedClusterSetBinding
+  path: metadata/annotations
+  create: true
+- kind: Placement
+  path: metadata/annotations
+  create: true

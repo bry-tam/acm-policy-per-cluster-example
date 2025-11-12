@@ -9,4 +9,6 @@ resources:
 components:
   ## include cluster specific details to override the policy with
   - ../../cluster
+  ## set hook on resources we don't want argo to actually sync
+  - ../../../../kustomize-configs/argo-hook
 
