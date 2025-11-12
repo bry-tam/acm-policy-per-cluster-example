@@ -12,7 +12,7 @@ spec:
       name: '{{ .cluster }}-{{ .policy | replace "_" "." }}'
       namespace: openshift-gitops
     spec:
-      project: default
+      project: policy-per-cluster
       source:
         repoURL: 'https://github.com/bry-tam/acm-policy-per-cluster-example.git'
         path: clusters/{{ .cluster }}/policies/{{ .policy }}

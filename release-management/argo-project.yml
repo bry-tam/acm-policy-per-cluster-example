@@ -1,0 +1,24 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: policy-per-cluster
+  namespace: openshift-gitops
+spec:
+  sourceRepos:
+    - '*'
+  destinations:
+  - namespace: '*'
+    server: '*'
+  namespaceResourceBlacklist:
+    - group: 'cluster.open-cluster-management.io'
+      kind: 'ManagedClusterSetBinding'
+    - group: 'cluster.open-cluster-management.io'
+      kind: 'Placement'
+  clusterResourceBlacklist:
+    - group: cluster.open-cluster-management.io
+      kind: ManagedCluster
+    - group: clusterview.open-cluster-management.io
+      kind: ManagedClusterSet
+    - group: '*'
+      kind: Namespace
