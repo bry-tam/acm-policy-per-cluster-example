@@ -20,3 +20,9 @@ replacements:
       kind: Placement
     fieldPaths:
     - spec.predicates.0.requiredClusterSelector.labelSelector.matchLabels.name
+
+  - select:
+      kind: ManagedCluster
+    fieldPaths:
+    # this may be the wrong syntax for targeting a label like this
+    - metadata.labels.[cluster.open-cluster-management.io/clusterset]
