@@ -99,9 +99,10 @@ spec:
   1. The `ApplicationSet` needs to be created for the Policy and included in the root `release-management/kustomization.yaml` file.
   2. The ApplicationSet needs to list the cluster in the generator.
   3. The kustomize overlay needs to be created for the cluster (and any cluster that the policy should be applied to) in the `/clusters/CLUSTER/policies/POLICY`.
+- **Clusters** - Each cluster needs to be listed in `release-management/clusters/cluster-appset.yml`.  This application will apply the various objects tying the managed cluster with the policy.  This includes the `ManagedCluster` to set the cluster-set annotation, `ManagedClusterSet` to create the per-cluster cluster set.  The `Placement` specific to that cluster/clusterset.  And the `ManagedClusterSetBinding` to allow the policies in the `policies-CLUSTER` namespace to be references in the Placement.
 
 
 Notes:
   - The policies in this repo are just examples to showcase how the entire layout works.  They should be replace with updated policies.
   - The amount of kustomize files/directories required to be managed is fairly large using a layout like this.  But this give the highest flexability for managing ACM policies.
-  - There are a number of items created repeatedly for each policy/cluster combo.  Things like the `Placement` and `MangedCluster`.  It is important to take care how these are managed.  Changing them on one revision can cause conflict with another revision deployed to ACM.
+  - There are a number of items created repeatedly for each policy/cluster combo.  Things like the `Placement` and `MangedCluster`.  These are blocked from being applied by the policy, instead they are applied by a separate AppSet/Application that only applies the cluster specific objects (`Placement`, `ManagedCluster`, `ManagedClusterSet`, `ManagedClusterSetBinding`)
