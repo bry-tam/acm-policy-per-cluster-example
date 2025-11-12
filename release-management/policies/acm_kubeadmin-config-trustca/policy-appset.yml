@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: acm_kubeadmin-config-trustca
+  name: acm.kubeadmin-config-trustca
   namespace: openshift-gitops
 spec:
   generators:

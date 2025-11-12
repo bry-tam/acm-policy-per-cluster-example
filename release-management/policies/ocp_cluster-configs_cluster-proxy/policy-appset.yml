@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ocp_cluster-configs_cluster-proxy
+  name: ocp.cluster-configs.cluster-proxy
   namespace: openshift-gitops
 spec:
   generators:

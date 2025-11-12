@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ocp_cluster-configs_monitoring
+  name: ocp.cluster-configs.monitoring
   namespace: openshift-gitops
 spec:
   generators:

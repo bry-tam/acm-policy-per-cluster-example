@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ocp_operator_data-foundation
+  name: ocp.operator.data-foundation
   namespace: openshift-gitops
 spec:
   generators:

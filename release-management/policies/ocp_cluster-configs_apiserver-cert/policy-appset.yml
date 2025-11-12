@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ocp_cluster-configs_apiserver-cert
+  name: ocp.cluster-configs.apiserver-cert
   namespace: openshift-gitops
 spec:
   generators:

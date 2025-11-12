@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: acm_feature-flags-placement
+  name: acm.feature-flags-placement
   namespace: openshift-gitops
 spec:
   generators:

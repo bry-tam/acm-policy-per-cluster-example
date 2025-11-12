@@ -9,7 +9,7 @@ spec:
   goTemplateOptions: ["missingkey=error"]
   template:
     metadata:
-      name: '{{ .cluster }}-{{ .policy }}'
+      name: '{{ .cluster }}-{{ .policy | replace "_" "." }}'
       namespace: openshift-gitops
     spec:
       project: default
