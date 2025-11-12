@@ -7,3 +7,8 @@ resources:
 
 components:
   - ../base/
+
+patches:
+  - target:
+      kind: ApplicationSet
+    path: ./cluster-appset.yml
