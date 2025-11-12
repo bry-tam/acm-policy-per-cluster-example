@@ -10,6 +10,7 @@ spec:
   destinations:
   - namespace: '*'
     server: '*'
+
   namespaceResourceBlacklist:
     - group: 'cluster.open-cluster-management.io'
       kind: 'ManagedClusterSetBinding'
@@ -22,3 +23,9 @@ spec:
       kind: ManagedClusterSet
     - group: '*'
       kind: Namespace
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  namespaceResourceWhitelist:
+    - group: '*'
+      kind: '*'
