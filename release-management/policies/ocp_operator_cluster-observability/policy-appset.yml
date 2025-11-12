@@ -21,8 +21,3 @@ spec:
             - cluster: ocpce
 
             - cluster: ocphbprd
-
-  template:
-    spec:
-      source:
-        path: clusters/{{ .cluster }}/policies/{{ .policy }}
