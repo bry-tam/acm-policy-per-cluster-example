@@ -31,4 +31,4 @@ policies:
 policySets:
   - name: acm-klusterlet-infra
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

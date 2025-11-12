@@ -37,4 +37,4 @@ policies:
 policySets:
   - name: loki-operator
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

@@ -65,4 +65,4 @@ policies:
 policySets:
   - name: ingress-certificate
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

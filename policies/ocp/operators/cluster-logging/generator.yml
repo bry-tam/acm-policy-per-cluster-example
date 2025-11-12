@@ -116,5 +116,5 @@ policies:
 policySets:
   - name: cluster-logging-operator
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement
 

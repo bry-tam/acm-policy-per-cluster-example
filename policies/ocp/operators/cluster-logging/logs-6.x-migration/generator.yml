@@ -69,5 +69,5 @@ policies:
 policySets:
   - name: cluster-logging-migration
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement
 

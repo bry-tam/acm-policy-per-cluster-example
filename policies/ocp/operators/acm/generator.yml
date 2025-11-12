@@ -45,4 +45,4 @@ policies:
 policySets:
   - name: acm-operator
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

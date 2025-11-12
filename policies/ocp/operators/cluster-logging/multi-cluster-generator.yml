@@ -58,4 +58,4 @@ policies:
 policySets:
   - name: multi-cluster-logging-operator
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

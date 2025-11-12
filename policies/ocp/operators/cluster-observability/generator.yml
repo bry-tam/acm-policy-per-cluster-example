@@ -42,4 +42,4 @@ policies:
 policySets:
   - name: cluster-observability-operator
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

@@ -22,4 +22,4 @@ policies:
 policySets:
   - name: acm-kubeadmin-trustca
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

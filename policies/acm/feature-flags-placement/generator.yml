@@ -22,4 +22,4 @@ policies:
 policySets:
   - name: acm-feature-placements
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

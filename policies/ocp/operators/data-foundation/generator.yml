@@ -65,4 +65,4 @@ policies:
 policySets:
   - name: odf-operator
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

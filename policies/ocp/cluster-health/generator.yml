@@ -27,4 +27,4 @@ policies:
 policySets:
   - name: cluster-health
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

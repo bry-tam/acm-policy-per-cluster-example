@@ -12,7 +12,7 @@ policyDefaults:
   controls: []
   standards: []
   placement:
-    per-cluster-placement
+    placementName: per-cluster-placement
 
 placementBindingDefaults:
   name: "cluster-config-apicert-binding"

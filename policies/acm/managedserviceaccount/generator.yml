@@ -25,4 +25,4 @@ policies:
 policySets:
   - name: acm-managed-sa
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement

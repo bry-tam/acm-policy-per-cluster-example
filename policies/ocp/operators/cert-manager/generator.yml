@@ -74,4 +74,4 @@ policies:
 policySets:
   - name: cert-manager
     placement:
-      per-cluster-placement
+      placementName: per-cluster-placement
