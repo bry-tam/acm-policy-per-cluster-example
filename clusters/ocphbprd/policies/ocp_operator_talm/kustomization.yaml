@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../../../policies/ocp/operators/talm
+
+
+components:
+  ## include cluster specific details to override the policy with
+  - ../../cluster
+

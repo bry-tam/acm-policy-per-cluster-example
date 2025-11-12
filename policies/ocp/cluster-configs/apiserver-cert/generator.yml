@@ -1,0 +1,38 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: api-cert-gen
+policyDefaults:
+  namespace: bry-tam-policies
+  remediationAction: enforce
+  consolidateManifests: false
+  ## turn off the default compliance annotations
+  categories: []
+  controls: []
+  standards: []
+  placement:
+    placementName: "env-bound-placement"
+
+placementBindingDefaults:
+  name: "cluster-config-apicert-binding"
+
+policies:
+  - name: apiserver-certificate
+    dependencies:
+      - name: cert-manager-clusterissuer
+        compliance: "Compliant"
+    manifests:
+      - path: certificate.yml
+        name: apiserver-certificate
+      - path: cert-ready.yml
+        name: apiserver-cert-ready
+        remediationAction: InformOnly
+      - path: apiserver.yml
+        name: apiserver-named-certs
+        extraDependencies:
+          - name: apiserver-cert-ready
+            kind: ConfigurationPolicy
+            compliance: "Compliant"
+
+

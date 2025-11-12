@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ocp_operator_acm
+  namespace: openshift-gitops
+spec:
+  generators:
+  - matrix:
+      generators:
+        - list:
+            elements:
+              - policy: ocp_operator_acm
+                revision: main
+        - list:
+            elements:
+            - cluster: ocphbprd
+
+  template:
+    spec:
+      source:
+        path: clusters/{{ .cluster }}/policies/{{ .policy }}

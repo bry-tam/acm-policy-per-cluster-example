@@ -1,0 +1,48 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: gen-policy-generator-acm
+policyDefaults:
+  namespace: bry-tam-policies
+  remediationAction: enforce
+  consolidateManifests: false
+  policySets:
+    - acm-operator
+
+  categories:
+    - "CM Configuration Management"
+  controls:
+    - "CM-2 Baseline Configuration"
+  standards:
+    - "NIST SP 800-53"
+
+  policyLabels:
+    policy_gen.name: acm-operator
+
+  severity: medium
+
+placementBindingDefaults:
+  name: "acm-operator-binding"
+
+policies:
+  - name: acm-operator
+    description: "Manages ACM Operator install and version"
+    remediationAction: enforce
+    manifests:
+      - path: operatorpolicy.yml
+
+  - name: acm-multiclusterhub
+    description: "Configures MultiClusterHub instance for ACM Operator"
+    remediationAction: enforce
+    dependencies:
+      - name: acm-operator
+        compliance: "Compliant"
+    manifests:
+      - path: multiclusterhub.yml
+        name: acm-operator-multiclusterhub
+
+policySets:
+  - name: acm-operator
+    placement:
+      placementName: "ft-acm-hub"

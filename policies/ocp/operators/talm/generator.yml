@@ -1,0 +1,41 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: gen-policy-generator-talm
+policyDefaults:
+  namespace: bry-tam-policies
+  remediationAction: enforce
+  consolidateManifests: false
+  policySets:
+    - talm-operator
+
+  categories:
+    - "CM Configuration Management"
+  controls:
+    - "CM-2 Baseline Configuration"
+  standards:
+    - "NIST SP 800-53"
+
+  policyLabels:
+    policy_gen.name: talm-operator
+
+  severity: medium
+
+placementBindingDefaults:
+  name: "talm-binding"
+
+policies:
+  - name: talm-operator
+    description: "Installs TALM Operator"
+    remediationAction: enforce
+    manifests:
+      - path: namespace.yml
+        name: talm-namespace
+
+      - path: operatorpolicy.yml
+
+policySets:
+  - name: talm-operator
+    placement:
+      placementName: "ft-acm-hub"

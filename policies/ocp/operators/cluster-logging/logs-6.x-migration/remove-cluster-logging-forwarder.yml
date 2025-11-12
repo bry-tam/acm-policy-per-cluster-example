@@ -1,0 +1,16 @@
+---
+object-templates-raw: |
+  {{/* ##  Find the ClusterLogging forwarders and metrics exporter ## */}}
+  {{- $loggers := concat  (lookup "logging.openshift.io/v1alpha1" "LogFileMetricExporter" "" "").items
+                          (lookup "logging.openshift.io/v1" "ClusterLogForwarder" "" "").items
+  }}
+
+  {{- range $clf := $loggers }}
+  - complianceType: mustnothave
+    objectDefinition:
+      apiVersion: {{ $clf.apiVersion }}
+      kind: {{ $clf.kind }}
+      metadata:
+        name: {{ $clf.metadata.name }}
+        namespace: {{ $clf.metadata.namespace }}
+  {{- end }}

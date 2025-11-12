@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: acm-policy-releasemanager
+  namespace: openshift-gitops
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  template:
+    metadata:
+      name: '{{ .cluster }}-{{ .policy }}'
+      namespace: openshift-gitops
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/bry-tam/acm-policy-per-cluster-example.git'
+        targetRevision: '{{ .revision }}'
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: 'policies-{{ .cluster }}'
+      syncPolicy:
+        automated:
+          prune: true
+          allowEmpty: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
+          - Validate=false

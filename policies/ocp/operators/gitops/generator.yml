@@ -1,0 +1,97 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: gen-policy-generator-gitops
+policyDefaults:
+  namespace: bry-tam-policies
+  remediationAction: enforce
+  consolidateManifests: false
+  policySets:
+    - gitops-operator
+
+  categories:
+    - "CM Configuration Management"
+  controls:
+    - "CM-2 Baseline Configuration"
+  standards:
+    - "NIST SP 800-53"
+
+  policyLabels:
+    policy_gen.name: gitops-operator
+
+  severity: medium
+
+placementBindingDefaults:
+  name: "gitops-binding"
+
+policies:
+  - name: gitops-110-migration
+    description: "Migrates pre-1.10 deployments to new operator namespace"
+    remediationAction: inform
+    manifests:
+      - path: migrate-gitops-1.10.yml
+
+  - name: gitops-operator
+    description: "Installs GitOps Operator"
+    dependencies:
+      - name: "gitops-110-migration"
+        compliance: "Compliant"
+    manifests:
+      - path: operator-ns.yml
+        name: operator-namespace
+
+      - path: argocd-ns.yml
+        name: argo-namespace
+
+      - path: operatorpolicy.yml
+
+  - name: gitops-instances
+    description: "Configures multiple ArgoCd instances to demonstrate how to make use of kustomize"
+    consolidateManifests: true
+    dependencies:
+      - name: "gitops-operator"
+        compliance: "Compliant"
+    manifests:
+      - path: argocd-instances/default
+        name: argo-instances
+
+      - path: argocd-instances/dev
+        name: argo-instances
+
+      - path: argocd-instances/argo-server-host.yml
+        name: argocd-instance-host
+
+  - name: gitops-acm-policygenerator
+    description: "Configures ArgoCD Repo server with the ACM PolicyGenerator"
+    dependencies:
+      - name: "gitops-instances"
+        compliance: "Compliant"
+    policySets:
+      - gitops-acm-hub
+    manifests:
+      - path: argocd-policygenerator.yml
+        name: argo-policygenerator
+
+      - path: applicationset-config/managedclustersetbinding.yml
+        name: applicationset-clusterbinding
+
+  - name: gitops-instance-status
+    description: "Monitors the health of ArgoCd instances"
+    remediationAction: inform
+    dependencies:
+      - name: "gitops-instances"
+        compliance: "Compliant"
+    manifests:
+      - path: health/argocd-status.yml
+        name: argocd-instance-status
+        remediationAction: InformOnly
+
+policySets:
+  - name: gitops-operator
+    placement:
+      placementName: "env-bound-placement"
+
+  - name: gitops-acm-hub
+    placement:
+      placementName: "ft-acm-hub"

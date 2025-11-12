@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: acm_klusterlet-infra
+  namespace: openshift-gitops
+spec:
+  generators:
+  - matrix:
+      generators:
+        - list:
+            elements:
+              - policy: acm_klusterlet-infra
+                revision: main
+        - list:
+            elements:
+            - cluster: ocphbprd
+
+  template:
+    spec:
+      source:
+        path: clusters/{{ .cluster }}/policies/{{ .policy }}

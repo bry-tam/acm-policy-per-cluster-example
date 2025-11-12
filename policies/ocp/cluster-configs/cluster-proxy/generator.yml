@@ -1,0 +1,31 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: cluster-proxy-gen
+policyDefaults:
+  namespace: bry-tam-policies
+  remediationAction: enforce
+  consolidateManifests: false
+  ## turn off the default compliance annotations
+  categories: []
+  controls: []
+  standards: []
+
+  policySets:
+    - cluster-configs-clusterproxy
+placementBindingDefaults:
+  name: "cluster-config-proxy-binding"
+
+policies:
+  - name: cluster-proxy
+    manifests:
+      - path: example-root-ca.yml
+        name: proxy-ca-configmap
+      - path: proxy.yml
+        name: cluster-proxy
+
+policySets:
+  - name: cluster-configs-clusterproxy
+    placement:
+      placementName: "env-bound-placement"

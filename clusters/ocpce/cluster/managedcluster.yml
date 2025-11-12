@@ -1,0 +1,10 @@
+---
+apiVersion: cluster.open-cluster-management.io/v1
+kind: ManagedCluster
+metadata:
+  # name: local-cluster
+  name: ocpce
+  labels:
+    cluster.open-cluster-management.io/clusterset: default
+    acm-hub: active
+    clusterobservability: enabled

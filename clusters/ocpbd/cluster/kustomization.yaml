@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+
+## specify the namespace to create the polcies/placements/bindings in
+namespace: policies-ocpbd
+
+transformers:
+  ## set the name of the PolicySets to include a suffix specific to this environment
+  - policyset-suffixer.yml
+
+
+resources:
+  - managedcluster.yml
+  - ../../../policies/common/
+
+
+components:
+  ## include all of the kustomize transformers and configurations
+  - ../../../kustomize-configs/

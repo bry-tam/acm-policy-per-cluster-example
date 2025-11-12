@@ -1,0 +1,73 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: PolicyGenerator
+metadata:
+  name: logging-migration
+policyDefaults:
+  namespace: bry-tam-policies
+  remediationAction: enforce
+  consolidateManifests: false
+  policySets:
+    - cluster-logging-migration
+placementBindingDefaults:
+  name: "logging-migration-binding"
+
+policies:
+  - name: prepare-logging-migration
+    remediationAction: InformOnly
+    manifests:
+      - path: validate-logging-version.yml
+        name: validate-logging-version
+
+  - name: clean-logging-migration
+    ## ignorePending prevents the NotCompliant dependency from causing this policy to always report as pending
+    ignorePending: true
+    dependencies:
+      - name: prepare-logging-migration
+        compliance: "NonCompliant"
+
+    manifests:
+      - path: remove-cluster-logging-forwarder.yml
+        name: remove-clusterlogging-forwarder
+
+      - path: remove-cluster-logging.yml
+        name: remove-clusterlogging
+        extraDependencies:
+          - name: remove-clusterlogging-forwarder
+            kind: ConfigurationPolicy
+            compliance: "Compliant"
+
+      - path: validate-elasticsearch-instance.yml
+        name: validate-elasticsearch-instance
+        remediationAction: InformOnly
+        extraDependencies:
+          - name: remove-clusterlogging
+            kind: ConfigurationPolicy
+            compliance: "Compliant"
+
+      - path: remove-logging-storage.yml
+        name: remove-logging-storage
+        extraDependencies:
+          - name: validate-elasticsearch-instance
+            kind: ConfigurationPolicy
+            compliance: "Compliant"
+
+      - path: remove-logging-namespaces.yml
+        name: remove-logging-namespaces
+        extraDependencies:
+          - name: remove-logging-storage
+            kind: ConfigurationPolicy
+            compliance: "Compliant"
+
+      - path: remove-logging-customresourcedefinition.yml
+        name: remove-logging-customresourcedefinition
+        extraDependencies:
+          - name: remove-logging-storage
+            kind: ConfigurationPolicy
+            compliance: "Compliant"
+
+policySets:
+  - name: cluster-logging-migration
+    placement:
+      placementName: "ft-logging--loki"
+

@@ -1,0 +1,17 @@
+---
+object-templates-raw: |
+  {{/* ##  Find the ClusterLogging subscription ## */}}
+  {{- $logSub := (lookup "operators.coreos.com/v1alpha1" "Subscription" "openshift-logging" "").items }}
+
+  {{- range $sub := $logSub }}
+    {{- $channel := (trimAll "stable-" $sub.spec.channel) }}
+    {{ if and (eq $sub.spec.name "cluster-logging") (lt (($channel | split ".")._0 | toInt) 6) }}
+  - complianceType: mustnothave
+    objectDefinition:
+      apiVersion: "operators.coreos.com/v1alpha1"
+      kind: Subscription
+      metadata:
+        name: {{ $sub.metadata.name }}
+        namespace: openshift-logging
+    {{- end }}
+  {{- end }}

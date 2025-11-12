@@ -1,0 +1,28 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ocp_operator_gatekeeper
+  namespace: openshift-gitops
+spec:
+  generators:
+  - matrix:
+      generators:
+        - list:
+            elements:
+              - policy: ocp_operator_gatekeeper
+                revision: main
+        - list:
+            elements:
+            - cluster: ocpac
+
+            - cluster: ocpbd
+
+            - cluster: ocpce
+
+            - cluster: ocphbprd
+
+  template:
+    spec:
+      source:
+        path: clusters/{{ .cluster }}/policies/{{ .policy }}

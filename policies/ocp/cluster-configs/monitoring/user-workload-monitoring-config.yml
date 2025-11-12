@@ -1,0 +1,115 @@
+---
+apiVersion: policy.open-cluster-management.io/v1
+kind: ConfigurationPolicy
+metadata:
+  name: user-workload-monitoring-config
+spec:
+  remediationAction: enforce
+  severity: low
+  object-templates-raw: |
+    {{- $obsHubInfoSecret := (lookup "v1" "Secret" (eq (fromClusterClaim "name") "local-cluster" | ternary "open-cluster-management-observability" "open-cluster-management-addon-observability") "hub-info-secret") }}
+
+    - complianceType: musthave
+      objectDefinition:
+        apiVersion: v1
+        kind: ConfigMap
+        metadata:
+          name: user-workload-monitoring-config
+          namespace: openshift-user-workload-monitoring
+        data:
+          config.yaml: |
+            prometheus:
+              retention: 7d
+              retentionSize: 100GB
+              resources:
+                requests:
+                  cpu: 200m
+                  memory: 2Gi
+
+              volumeClaimTemplate:
+                spec:
+                  resources:
+                    requests:
+                      storage: 100Gi
+                  storageClassName: gp3-csi
+              nodeSelector:
+                node-role.kubernetes.io/{{ hasNodesWithExactRoles "infra" | ternary "infra" "worker" }}: ""
+              tolerations:
+                - operator: Exists
+                  key: node-role.kubernetes.io/infra
+
+              externalLabels:
+                instance_name: {{ $n := split "." (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").status.apiServerURL }}{{ $n._1 }}
+                product: {{ fromClusterClaim "product.open-cluster-management.io" }}
+                managed_cluster: {{ fromClusterClaim "id.openshift.io" }}
+
+    {{- if not (empty $obsHubInfoSecret ) }}
+      {{- $hubInfo := (index $obsHubInfoSecret.data "hub-info.yaml") | base64dec }}
+      {{- $amURL := "" }}
+      {{- range $v := (split "\n" $hubInfo)}}
+        {{- if (contains "alertmanager-endpoint" $v) }}
+          {{- $amURL = (split " " $v)._1  }}
+          {{- break }}
+        {{- end }}
+      {{- end }}
+              additionalAlertmanagerConfigs:
+              - apiVersion: v2
+                bearerToken:
+                  key: token
+                  name: observability-alertmanager-accessor
+                pathPrefix: /
+                scheme: https
+                staticConfigs:
+                - {{ trimAll "https://" $amURL }}
+                tlsConfig:
+                  ca:
+                    key: service-ca.crt
+                    name: hub-alertmanager-router-ca
+                  insecureSkipVerify: false
+    {{- end }}
+
+            prometheusOperator:
+              nodeSelector:
+                node-role.kubernetes.io/{{ hasNodesWithExactRoles "infra" | ternary "infra" "worker" }}: ""
+              tolerations:
+                - operator: Exists
+                  key: node-role.kubernetes.io/infra
+
+            thanosRuler:
+              retention: 7d
+              resources:
+                requests:
+                  cpu: 200m
+                  memory: 2Gi
+
+              volumeClaimTemplate:
+                spec:
+                  resources:
+                    requests:
+                      storage: 100Gi
+                  storageClassName: gp3-csi
+              nodeSelector:
+                node-role.kubernetes.io/{{ hasNodesWithExactRoles "infra" | ternary "infra" "worker" }}: ""
+              tolerations:
+                - operator: Exists
+                  key: node-role.kubernetes.io/infra
+
+    {{- if not (empty $obsHubInfoSecret ) }}
+    - complianceType: mustonlyhave
+      objectDefinition:
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: hub-alertmanager-router-ca
+          namespace: openshift-user-workload-monitoring
+        data: '{{ copySecretData "openshift-monitoring" "hub-alertmanager-router-ca" }}'
+
+    - complianceType: mustonlyhave
+      objectDefinition:
+        apiVersion: v1
+        kind: Secret
+        metadata:
+          name: observability-alertmanager-accessor
+          namespace: openshift-user-workload-monitoring
+        data: '{{ copySecretData "openshift-monitoring" "observability-alertmanager-accessor" }}'
+    {{- end }}

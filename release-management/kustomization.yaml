@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ./policies/acm_feature-flags-placement
+- ./policies/acm_klusterlet-infra
+- ./policies/acm_kubeadmin-config-trustca
+- ./policies/acm_managedserviceaccount
+- ./policies/ocp_cluster-configs_apiserver-cert
+- ./policies/ocp_cluster-configs_cluster-proxy
+- ./policies/ocp_cluster-configs_ingress
+- ./policies/ocp_cluster-configs_monitoring
+- ./policies/ocp_cluster-health
+- ./policies/ocp_operator_acm
+- ./policies/ocp_operator_cert-manager
+- ./policies/ocp_operator_cluster-logging
+- ./policies/ocp_operator_cluster-observability
+- ./policies/ocp_operator_data-foundation
+- ./policies/ocp_operator_gatekeeper
+- ./policies/ocp_operator_gitops
+- ./policies/ocp_operator_loki
+- ./policies/ocp_operator_talm
