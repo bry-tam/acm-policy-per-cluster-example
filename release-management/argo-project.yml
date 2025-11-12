@@ -25,7 +25,9 @@ spec:
       kind: Namespace
   clusterResourceWhitelist:
     - group: '*'
-      kind: '*'
+      kind: ' ClusterRole'
+    - group: '*'
+      kind: ' ClusterRoleBinding'
   namespaceResourceWhitelist:
     - group: '*'
       kind: '*'
