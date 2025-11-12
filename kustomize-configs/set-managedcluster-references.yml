@@ -26,3 +26,14 @@ replacements:
     fieldPaths:
     # this may be the wrong syntax for targeting a label like this
     - metadata.labels.[cluster.open-cluster-management.io/clusterset]
+
+  - select:
+      kind: Placement
+    fieldPaths:
+    - spec.clusterSets.0
+
+  - select:
+      kind: ManagedClusterSetBinding
+    fieldPaths:
+    - spec.clusterSet
+    - metadata.name

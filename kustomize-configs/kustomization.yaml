@@ -5,7 +5,6 @@ kind: Component
 
 transformers:
   ## replace all references to ManagedClusterSet with the name of the ManagedClusterSet created for this environment
-  - ./set-clusterset-references.yml
   - ./set-managedcluster-references.yml
 
 configurations:
