@@ -6,4 +6,4 @@ resources:
   - cluster-appset.yml
 
 components:
-  - ../../base/
+  - ../base/
