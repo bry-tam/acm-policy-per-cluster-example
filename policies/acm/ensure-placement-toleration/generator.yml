@@ -23,4 +23,4 @@ policies:
 policySets:
   - name: acm-placement-toleration
     placement:
-      placementName: "env-bound-hub-placement"
+      per-cluster-placement

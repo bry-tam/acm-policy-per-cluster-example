@@ -37,4 +37,4 @@ policies:
 policySets:
   - name: loki-operator
     placement:
-      placementName: "ft-loki--enabled"
+      per-cluster-placement

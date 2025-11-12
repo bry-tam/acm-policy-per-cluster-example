@@ -25,4 +25,4 @@ policies:
 policySets:
   - name: acm-managed-sa
     placement:
-      placementName: "ft-acm-hub--active"
+      per-cluster-placement

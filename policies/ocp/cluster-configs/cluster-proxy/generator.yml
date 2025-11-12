@@ -28,4 +28,4 @@ policies:
 policySets:
   - name: cluster-configs-clusterproxy
     placement:
-      placementName: "env-bound-placement"
+      per-cluster-placement

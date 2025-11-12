@@ -27,4 +27,4 @@ policies:
 policySets:
   - name: cluster-health
     placement:
-      placementName: "env-bound-placement"
+      per-cluster-placement

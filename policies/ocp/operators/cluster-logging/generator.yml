@@ -116,5 +116,5 @@ policies:
 policySets:
   - name: cluster-logging-operator
     placement:
-      placementName: "ft-logging--loki"
+      per-cluster-placement
 

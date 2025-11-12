@@ -22,4 +22,4 @@ policies:
 policySets:
   - name: acm-kubeadmin-trustca
     placement:
-      placementName: "env-bound-hub-placement"
+      per-cluster-placement

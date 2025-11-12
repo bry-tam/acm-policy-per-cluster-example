@@ -65,4 +65,4 @@ policies:
 policySets:
   - name: ingress-certificate
     placement:
-      placementName: "ft-renew-default-certs--enabled"
+      per-cluster-placement

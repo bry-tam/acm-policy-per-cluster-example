@@ -42,4 +42,4 @@ policies:
 policySets:
   - name: cluster-observability-operator
     placement:
-      placementName: "ft-clusterobservability--enabled"
+      per-cluster-placement

@@ -58,4 +58,4 @@ policies:
 policySets:
   - name: multi-cluster-logging-operator
     placement:
-      placementName: "ft-logging--multi"
+      per-cluster-placement

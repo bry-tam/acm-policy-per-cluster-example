@@ -65,4 +65,4 @@ policies:
 policySets:
   - name: odf-operator
     placement:
-      placementName: "ft-storage--odf"
+      per-cluster-placement

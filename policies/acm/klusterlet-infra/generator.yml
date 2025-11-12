@@ -31,4 +31,4 @@ policies:
 policySets:
   - name: acm-klusterlet-infra
     placement:
-      placementName: "env-bound-hub-placement"
+      per-cluster-placement

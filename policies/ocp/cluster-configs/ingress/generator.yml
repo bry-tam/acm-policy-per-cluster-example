@@ -40,4 +40,4 @@ policies:
 policySets:
   - name: cluster-configs-ingress
     placement:
-      placementName: "env-bound-placement"
+      per-cluster-placement

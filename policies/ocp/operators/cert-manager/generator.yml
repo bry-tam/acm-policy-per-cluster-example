@@ -74,4 +74,4 @@ policies:
 policySets:
   - name: cert-manager
     placement:
-      placementName: "env-bound-placement"
+      per-cluster-placement

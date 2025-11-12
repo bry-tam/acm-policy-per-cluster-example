@@ -90,8 +90,8 @@ policies:
 policySets:
   - name: gitops-operator
     placement:
-      placementName: "env-bound-placement"
+      per-cluster-placement
 
   - name: gitops-acm-hub
     placement:
-      placementName: "ft-acm-hub"
+      per-cluster-placement

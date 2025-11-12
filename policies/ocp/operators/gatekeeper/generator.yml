@@ -63,5 +63,5 @@ policies:
 policySets:
   - name: gatekeeper-operator
     placement:
-      placementName: "env-bound-placement"
+      per-cluster-placement
 
