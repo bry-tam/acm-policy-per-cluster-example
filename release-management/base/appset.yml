@@ -11,6 +11,8 @@ spec:
     metadata:
       name: '{{ .cluster }}-{{ .policy | replace "_" "." }}'
       namespace: openshift-gitops
+      annotations:
+        argocd.argoproj.io/compare-options: ServerSideDiff=true,IncludeMutationWebhook=true
     spec:
       project: policy-per-cluster
       source:
