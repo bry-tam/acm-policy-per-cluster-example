@@ -2,6 +2,6 @@
 apiVersion: cluster.open-cluster-management.io/v1
 kind: ManagedCluster
 metadata:
-  name: ocphbprd
+  name: local-cluster
   labels:
     cluster.open-cluster-management.io/clusterset: default
