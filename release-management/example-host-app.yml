@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: policy-per-cluster-manager
+  namespace: openshift-gitops
+  resourceVersion: '3267318'
+  uid: 404fd1c1-0d36-4437-b187-f5f86e6a091f
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: release-management
+    repoURL: 'https://github.com/bry-tam/acm-policy-per-cluster-example.git'
+    targetRevision: HEAD
