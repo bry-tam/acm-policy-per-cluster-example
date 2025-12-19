@@ -4,6 +4,7 @@ config:
   flowchart:
     htmlLabels: false
     theme: neutral
+  layout: elk
 ---
 graph TD
     subgraph Release_Management [ **release-management** ]
