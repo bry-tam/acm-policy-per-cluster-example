@@ -3,7 +3,7 @@
 config:
   flowchart:
     htmlLabels: false
-  theme: dark
+  theme: neutral
 ---
 graph TD
     subgraph Release_Management [ **release-management** ]
