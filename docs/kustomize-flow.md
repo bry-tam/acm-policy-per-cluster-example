@@ -3,7 +3,7 @@
 config:
   flowchart:
     htmlLabels: false
-  theme: neutral
+    theme: neutral
 ---
 graph TD
     subgraph Release_Management [ **release-management** ]
@@ -183,4 +183,9 @@ graph TD
     linkStyle 2,3 stroke:#030bfc
     linkStyle 19 stroke:#fc0303
     linkStyle 24 stroke:#2dad33
+
+    classDef ltblue_node fill:#5faaf5,stroke:#000000,stroke-width:4px
+    classDef ltgreen_node fill:#c4ffcd,stroke:#000000,stroke-width:4px
+    class cluster_ocpac,cluster_ocpbd ltblue_node
+    class policy_cluster_health_ocpac,policy_cluster_health_ocpbd ltgreen_node
 ```
