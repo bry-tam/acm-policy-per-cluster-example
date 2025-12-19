@@ -186,6 +186,8 @@ graph TD
 
     classDef ltblue_node fill:#5faaf5,stroke:#000000,stroke-width:4px
     classDef ltgreen_node fill:#c4ffcd,stroke:#000000,stroke-width:4px
+    classDef ltorange_node fill:#f0aa54,stroke:#000000,stroke-width:4px
     class cluster_ocpac,cluster_ocpbd ltblue_node
     class policy_cluster_health_ocpac,policy_cluster_health_ocpbd ltgreen_node
+    class policy_appset_1 ltorange_node
 ```
