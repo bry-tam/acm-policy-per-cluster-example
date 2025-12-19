@@ -6,7 +6,7 @@ config:
     theme: neutral
   layout: elk
 ---
-graph TD
+graph LR
     subgraph Release_Management [ **release-management** ]
         RM_Kust@{ shape: processes, label: "kustomize entry point" }
     end
