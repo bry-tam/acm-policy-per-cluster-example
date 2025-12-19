@@ -165,8 +165,8 @@ graph TD
     ocpbd_ks --> ocpbd_cm
 
 
-    policy_appset_1 --> ocpac_policy1
-    policy_appset_1 --> ocpbd_policy1
+    policy_appset_1 --> policy_cluster_health_ocpac
+    policy_appset_1 --> policy_cluster_health_ocpbd
 
     ocpac_policy1 --> policy_cluster_health_ocpac_sg 
     policy_cluster_health_ocpac_ks --> policy_cluster_health_ocpac_rs
