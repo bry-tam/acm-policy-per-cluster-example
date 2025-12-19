@@ -185,6 +185,7 @@ graph TD
     linkStyle 19 stroke:#fc0303
     linkStyle 24 stroke:#2dad33
 
+    classDef default stroke:#000000,stroke-width:3px
     classDef ltblue_node fill:#5faaf5,stroke:#000000,stroke-width:4px
     classDef ltgreen_node fill:#c4ffcd,stroke:#000000,stroke-width:4px
     classDef ltorange_node fill:#f0aa54,stroke:#000000,stroke-width:4px
