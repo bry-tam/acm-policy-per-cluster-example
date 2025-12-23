@@ -5,6 +5,8 @@ This repository represents an example of how to structure a git source repositor
 
 The output on the ACM hub will have each cluster in their own `ClusterSet` and all the policies for that cluster in a common `policies-MANAGEDCLUSTER` namespace.
 
+For an indepth view and explanation of the kustomize output, view the [kustomize-flow.md](docs/kustomize-flow.md)
+
 ### Directory Structure
 Each cluster is represented with a directory in the `clusters` root directory.  The cluster specific details is in a "cluster" subdirectory, this is done to satisfy kustomize circular references.  The "cluster" subdirectory is referenced from every policy kustomize path, this is done to update `Placements`, `ClusterSets`, `ManagedClusterSetBinding` are all created specific for this cluster.
 
