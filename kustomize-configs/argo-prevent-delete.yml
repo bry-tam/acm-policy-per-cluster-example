@@ -1,0 +1,15 @@
+---
+## The intent of this file is to block resources from being deleted by argo
+apiVersion: builtin
+kind: AnnotationsTransformer
+metadata:
+  name: argo-prevent-delete
+annotations:
+  argocd.argoproj.io/sync-options: Delete=false
+fieldSpecs:
+- kind: ManagedCluster
+  path: metadata/annotations
+  create: true
+- kind: ManagedClusterSet
+  path: metadata/annotations
+  create: true
