@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: ocp.cluster-health
+  name: ocp_cluster-health
   namespace: openshift-gitops
 spec:
   generators:
