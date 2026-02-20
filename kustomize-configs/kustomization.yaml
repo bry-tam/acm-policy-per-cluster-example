@@ -6,6 +6,8 @@ kind: Component
 transformers:
   ## replace all references to ManagedClusterSet with the name of the ManagedClusterSet created for this environment
   - ./set-managedcluster-references.yml
+  ## add annotation preventing argo from deleting ManagedCluster and ManagedClusterSet
+  - ./argo-prevent-delete.yml
 
 configurations:
   ## configure kustomize to correct the name of the PolicySet in the placement binding
